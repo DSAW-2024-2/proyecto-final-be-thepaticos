@@ -50,14 +50,18 @@ class userController {
   static async patchUserRides(req, res, next) {
     try {
       const { id } = req.params;
-      const { rideId } = req.body;
-      await usersModel.patchUserRides(id, rideId);
+      const { rideId, arrivalPoints } = req.body;
+      await usersModel.patchUserRides(id, { rideId, arrivalPoints });
       res.status(200).json({ message: 'Viaje agendado correctamente' });
     } catch (error) {
       if (error.message === 'RideNotFound') {
         return res
           .status(404)
           .json({ message: 'No existe o no esta activo dicho wheels' });
+      } else if (error.message === 'NotEnoughSeats') {
+        return res
+          .status(400)
+          .json({ message: 'No hay suficientes asientos disponibles' });
       }
       next(error);
     }
@@ -73,6 +77,35 @@ class userController {
           .status(404)
           .json({ message: 'No existe o no esta activo dicho wheels' });
       }
+      next(error);
+    }
+  }
+  static async deleteUserRide(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { point, rideId } = req.query;
+      await usersModel.deleteUserRide({ userId: id, rideId, point });
+      res.status(200).json({ message: 'Viaje eliminado correctamente' });
+    } catch (error) {
+      if (error.message === 'UserRideNotFound') {
+        return res
+          .status(404)
+          .json({ message: 'Este usuario no tiene este ride como reserva' });
+      }
+      next(error);
+    }
+  }
+  static async getUserNotifications(req, res, next) {
+    try {
+      const authHeader = req.headers['authorization'];
+      const token = authHeader && authHeader.split(' ')[1];
+      const { id } = jsonwebtoken.verify(
+        token,
+        process.env.ACCESS_TOKEN_SECRET
+      );
+      const notifications = await usersModel.userNotifications(id);
+      res.status(200).json({ notifications: notifications });
+    } catch (error) {
       next(error);
     }
   }

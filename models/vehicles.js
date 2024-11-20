@@ -5,7 +5,7 @@ import usersModel from './users.js';
 import admin from 'firebase-admin';
 class vehiclesModel {
   static async getAllVehicles() {
-    const snapshot = await db.collection('vehicle').get();
+    const snapshot = await db.collection('vehicles').get();
     const rides = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -66,13 +66,15 @@ class vehiclesModel {
   }
   static async getVehicleRides(plate) {
     const vehicle = await this.getVehicleByPlate(plate);
+
     const ridesInfo = vehicle.rides
       ? await Promise.all(
           vehicle.rides.map(async (rideId) => {
             const rideData = await ridesModel.getRideById(rideId);
-            return { rideId: rideId, ...rideData };
+            if (!rideData.isActive) return null;
+            return { rideId, ...rideData };
           })
-        )
+        ).then((rides) => rides.filter(Boolean))
       : [];
 
     return ridesInfo;

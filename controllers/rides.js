@@ -1,11 +1,22 @@
 import { validationErrors } from '../errors/CustomErrors.js';
-import { formatZodErrors, rideSchema } from '../lib/validators.js';
+import { rideSchema } from '../lib/validators.js';
 import ridesModel from '../models/rides.js';
 
 class rideController {
   static async getRides(req, res, next) {
+    const allowedQueryParams = ['origin', 'destination', 'seats'];
     try {
-      const rides = await ridesModel.getAllRides();
+      const queryParams = req.body;
+      const queryParamsKeys = Object.keys(queryParams);
+      const isValid = queryParamsKeys.every((param) =>
+        allowedQueryParams.includes(param)
+      );
+
+      if (!isValid) {
+        return res.status(400).json({ error: 'Invalid query parameters' });
+      }
+      const rides = await ridesModel.getAllRides(queryParams);
+
       res.status(200).json({ rides: rides });
     } catch (error) {
       next(error);
@@ -27,6 +38,10 @@ class rideController {
         return res
           .status(400)
           .json({ message: 'No existe un vehiculo con esa placa' });
+      } else if (error.message === 'NotEnoughSeats') {
+        return res
+          .status(409)
+          .json({ message: 'No tienes suficientes asientos en tu carro' });
       }
 
       next(error);
@@ -48,7 +63,7 @@ class rideController {
       if (error.message === 'RideHaveActivePassengers') {
         return res.status(409).json({
           message:
-            'El ride no puede eliminarse porque tiene pasajeros asociados',
+            'El ride no puede eliminarse con menos de 30 minutos de antelación ',
         });
       }
       next(error);
@@ -57,6 +72,8 @@ class rideController {
   static async recommendedFee(req, res, next) {
     try {
       const { startPoint, endPoint } = req.query;
+      const fee = await ridesModel.getRecommendedFee(startPoint, endPoint);
+      res.status(200).json({ recommendedFee: fee });
     } catch (error) {
       next(error);
     }
