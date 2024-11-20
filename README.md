@@ -1,67 +1,35 @@
-# Taller en Parejas: Creación de un Endpoint con Express.js
+# Jhojan Jímenez & Nicolás Cáceres
 
-Este proyecto consiste en un reto de desarrollo backend en el que se debe crear un endpoint llamado `user-info` utilizando el framework Express.js. El objetivo principal es que, al hacer una solicitud GET a este endpoint, se retorne un objeto JSON con la información de uno o dos estudiantes, dependiendo de si el equipo está compuesto por una o dos personas.
+### Link Depliegue:
+* [Bakc end - WheelUs](https://proyecto-final-be-thepaticos.vercel.app)
 
-## Contexto
+### Link Repo Front:
+* [Front end - WheelUs](https://github.com/DSAW-2024-2/proyecto-final-fe-thepaticos)
 
-En este reto, debes crear un servidor Express.js que contenga dos endpoints principales. Cada uno de estos endpoints debe devolver información de los estudiantes participantes:
+### Link de Figma y presentación
 
-- `GET /user-info/1` para el primer estudiante.
-- `GET /user-info/2` para el segundo estudiante (si aplica).
+* [Figma](https://www.figma.com/design/QZJE7o6KroUE3g5uYbQlw9/Login?node-id=1-3&t=UIxMXuMIo6VLYons-1)
 
-Si un estudiante trabaja solo, el endpoint `GET /user-info/1` será el único requerido y no debe existir el endpoint `/user-info/2`.
+* [Trello](https://trello.com/invite/b/66e396dfbd737d855ceb4076/ATTI5218f1f95d5e265d2bde3815106b26858447B0BF/desarrollo-web-thepaticos)
 
-### Requisitos del JSON
+* [Pitch](https://www.canva.com/design/DAGW4vFgf10/Pv4a3jUEWItJwBoERvOLyg/view?utm_content=DAGW4vFgf10&utm_campaign=designshare&utm_medium=link&utm_source=editor )
 
-El objeto JSON que debe retornar cada endpoint debe tener la siguiente estructura:
+# Sobre el proyecto
 
-```json
-{
-  "name": "Nombre del estudiante",
-  "lastName": "Apellido del estudiante",
-  "email": "Correo del estudiante",
-  "id": "ID de la universidad"
-}
-```
+Nuestra plataforma, **WheelUs**, facilita la gestión de viajes y recorridos, conocidos como *wheels*, para estudiantes y personal de la Universidad de la Sabana. Es un sistema de transporte interno que busca mejorar la calidad de vida de la comunidad universitaria a través de la colaboración mutua y la unidad.
 
-### Requisitos técnicos
+Esta aplicación web permite gestionar viajes publicados por personas que ofrecen sus vehículos para transportar pasajeros a diversas zonas de Bogotá y Sabana Centro.
 
-- Crear un proyecto básico en Node.js con Express.js.
-- Definir los endpoints para obtener datade los usuarios i.e `GET /user-info/1` y `GET /user-info/2` según la cantidad de integrantes del equipo, **es importante que NO queme en el código estos IDs, sino que genere un único endpoint que reciba como parámetro el ID de los estudiantes y con base en él retorne la información. OJO, valide las entradas.**
-- Configurar el servidor para que escuche en el puerto `3000` o cualquier otro de tu elección.
-- Asegurarse de que el servidor esté funcionando correctamente y que cada endpoint retorne el JSON adecuado.
+Entre las funcionalidades de la plataforma, los usuarios pueden:
+* Registrarse o iniciar sesión
+* Filtrar y buscar rutas
+* Gestionar reservas
+* Administrar el perfil de pasajero
+* Registrar un vehículo
+* Publicar rutas de un vehículo
+* Gestionar el perfil de conductor y vehículo
+* Administrar rutas publicadas
 
-### Instrucciones de uso
+Además, la plataforma está integrada con mapas mediante las APIs de Google Maps, lo que permite a los usuarios visualizar la ruta y los puntos exactos donde el "wheel" realizará su recorrido. **WheelUs** está en constante evolución, con planes de integrar mejoras a largo plazo.
 
-1. Clonar este repositorio en tu máquina local.
-2. Instalar las dependencias del proyecto con `npm install`.
-3. Definir el/los endpoint(s) en el archivo de rutas principal de Express.js.
-4. Ejecutar el servidor con el comando `npm start`.
-5. Probar los endpoints haciendo solicitudes GET a `http://localhost:3000/user-info/1` y `http://localhost:3000/user-info/2` (si aplica).
-
-### Rúbrica de evaluación
-
-| Aspecto                        | Puntuación |
-| ------------------------------ | ---------- |
-| Estructura del proyecto         | 1.0        |
-| Implementación correcta de el/los endpoints | 1        |
-| Respuesta correcta del JSON en ambos endpoints | 1.5       |
-| Buenas prácticas en Express.js  | 0.5        |
-| Servidor desplegado correctamente  | 1        |
-| Total                          | 5          |
-
-### Casos especiales
-
-- Si el equipo está formado por un solo estudiante, únicamente se debe implementar el endpoint `/user-info/1`.
-- Si hay dos estudiantes, ambos endpoints deben estar implementados y retornar información correcta.
-
-### Recursos adicionales
-
-- [Guía de Express.js](https://expressjs.com/es/)
-- [Guía de Node.js](https://nodejs.org/es/docs/)
-- [ Despliegue de aplicaciones Node.js en Netlify](https://www.netlify.com/blog/2016/09/29/a-step-by-step-guide-deploying-on-netlify/)
-- [Despliegue de aplicaciones Express.js en Vercel]([https://nodejs.org/es/docs/](https://vercel.com/docs/deployments/overview))
-
--
-
-
+Finalmente, el proyecto está desarrollado con **Firebase** y **ExpressJS**.
