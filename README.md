@@ -32,4 +32,4 @@ Entre las funcionalidades de la plataforma, los usuarios pueden:
 
 Además, la plataforma está integrada con mapas mediante las APIs de Google Maps, lo que permite a los usuarios visualizar la ruta y los puntos exactos donde el "wheel" realizará su recorrido. **WheelUs** está en constante evolución, con planes de integrar mejoras a largo plazo.
 
-Finalmente, el proyecto está desarrollado con **Firebase** y **JavaScript**.
+Finalmente, el proyecto está desarrollado con **Firebase** y **ExpressJS**.
